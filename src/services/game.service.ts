@@ -25,6 +25,10 @@ export class GameService {
     });
     return game || null;
   }
+
+  public async createGame(gameDTO: GameDTO): Promise<GameDTO> {
+    return Game.create(gameDTO);
+  }
 }
 
 export const gameService = new GameService();
