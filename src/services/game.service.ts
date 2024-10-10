@@ -13,6 +13,18 @@ export class GameService {
       ],
     });
   }
+
+  public async getGameById(id: number): Promise<GameDTO | null> {
+    const game = await Game.findByPk(id, {
+      include: [
+        {
+          model: Console,
+          as: "console",
+        },
+      ],
+    });
+    return game || null;
+  }
 }
 
 export const gameService = new GameService();
