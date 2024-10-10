@@ -39,6 +39,7 @@ export class ConsoleController extends Controller {
     @Body() requestBody: ConsoleDTO
   ): Promise<ConsoleDTO | null> {
     const { name, manufacturer } = requestBody;
-    return consoleService.updateConsole(id, name, manufacturer);
+    return await consoleService.updateConsole(id, name, manufacturer);
+    
   }
 }

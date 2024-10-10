@@ -1,4 +1,5 @@
 import { Console } from "../models/console.model";
+import { notFound } from "../error/NotFoundError";
 
 export class ConsoleService {
 
@@ -41,7 +42,7 @@ export class ConsoleService {
       await console.save();
       return console;
     }
-    return null;
+    throw notFound("Console");
   }
 }
 
