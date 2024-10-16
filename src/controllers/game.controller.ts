@@ -30,7 +30,6 @@ export class GameController extends Controller {
   public async deleteGame(@Path() id: number): Promise<void> {
     try {
       await gameService.deleteGame(id);
-      this.setStatus(204); // No Content
     } catch (error) {
       if (error instanceof BadRequestError) {
         this.setStatus(400); // Bad Request

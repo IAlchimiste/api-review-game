@@ -73,7 +73,7 @@ export class GameService {
       throw new BadRequestError("Game not found");
     }
 
-    const reviewCount = await Review.count({ where: { gameId: id } });
+    const reviewCount = await Review.count({ where: { game_id: id } });
     if (reviewCount > 0) {
       throw new BadRequestError("Cannot delete a game with reviews");
     }

@@ -17,18 +17,18 @@
 						"type": "number",
 						"format": "double"
 					},
-					"comment": {
+					"review_text": {
 						"type": "string"
 					},
-					"gameId": {
+					"game_id": {
 						"type": "number",
 						"format": "double"
 					}
 				},
 				"required": [
 					"rating",
-					"comment",
-					"gameId"
+					"review_text",
+					"game_id"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -43,10 +43,10 @@
 						"type": "number",
 						"format": "double"
 					},
-					"comment": {
+					"review_text": {
 						"type": "string"
 					},
-					"gameId": {
+					"game_id": {
 						"type": "number",
 						"format": "double"
 					}

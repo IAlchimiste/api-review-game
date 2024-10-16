@@ -3,9 +3,16 @@ import { ReviewDTO } from "../dto/review.dto";
 import { Game } from "../models/game.model"; 
 
 export class ReviewService {
-  public async getAllReviews(): Promise<ReviewDTO[]> {
-    return Review.findAll();
-  }
+  public async getAllReviews(): Promise<Review[]> {
+    return await Review.findAll({
+        include: [
+            {
+                model: Game,
+                as: "game",
+            },
+        ],
+    });
+}
 
   public async getReviewById(id: number): Promise<ReviewDTO | null> {
     return Review.findByPk(id);
@@ -14,7 +21,7 @@ export class ReviewService {
   public async createReview(reviewDTO: ReviewDTO): Promise<ReviewDTO> {
     const review = await Review.create({
       ...reviewDTO,
-      comment: reviewDTO.comment ?? "",
+      review_text: reviewDTO.review_text ?? "",
     });
     return review;
   }
@@ -29,8 +36,8 @@ export class ReviewService {
       review.rating = reviewDTO.rating;
     }
 
-    if (reviewDTO.comment !== undefined) {
-      review.comment = reviewDTO.comment;
+    if (reviewDTO.review_text !== undefined) {
+      review.review_text = reviewDTO.review_text;
     }
 
     await review.save();
@@ -47,7 +54,7 @@ export class ReviewService {
   public async hasReviewsForConsole(consoleId: number): Promise<boolean> {
     const games = await Game.findAll({ where: { console_id: consoleId } });
     const gameIds = games.map(game => game.id);
-    const reviewCount = await Review.count({ where: { gameId: gameIds } });
+    const reviewCount = await Review.count({ where: { game_id: gameIds } });
     return reviewCount > 0;
   }
 }

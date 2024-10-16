@@ -5,8 +5,8 @@ import { Game } from "./game.model"; // Importez le modèle Game si une relation
 export interface ReviewAttributes {
   id: number;
   rating: number;
-  comment: string;
-  gameId: number; // Clé étrangère pour le modèle Game
+  review_text: string;
+  game_id: number; // Clé étrangère pour le modèle Game
 }
 
 // Définir les attributs optionnels pour la création
@@ -16,8 +16,8 @@ interface ReviewCreationAttributes extends Optional<ReviewAttributes, "id"> {}
 export class Review extends Model<ReviewAttributes, ReviewCreationAttributes> implements ReviewAttributes {
   public id!: number;
   public rating!: number;
-  public comment!: string;
-  public gameId!: number;
+  public review_text!: string;
+  public game_id!: number;
 
   // Timestamps
   public readonly createdAt!: Date;
@@ -40,11 +40,11 @@ Review.init(
         max: 5,
       },
     },
-    comment: {
+    review_text: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    gameId: {
+    game_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {
@@ -60,5 +60,5 @@ Review.init(
 );
 
 // Définir les relations
-Review.belongsTo(Game, { foreignKey: "gameId", as: "game" });
-Game.hasMany(Review, { foreignKey: "gameId", as: "reviews" });
+Review.belongsTo(Game, { foreignKey: "id", as: "game" });
+Game.hasMany(Review, { foreignKey: "game_id", as: "reviews" });
