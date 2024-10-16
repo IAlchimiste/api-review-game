@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Route, Tags, Path, Post } from "tsoa";
+import { Body, Controller, Get, Route, Tags, Path, Post, Patch } from "tsoa";
 import { GameDTO } from "../dto/game.dto";
 import { gameService } from "../services/game.service";
 
@@ -18,5 +18,10 @@ export class GameController extends Controller {
   @Post("/")
   public async createGame(@Body() requestBody: GameDTO): Promise<GameDTO> {
     return gameService.createGame(requestBody);
+  }
+
+  @Patch("/{id}")
+  public async updateGame(@Path() id: number, @Body() requestBody: Partial<GameDTO>): Promise<GameDTO | null> {
+    return gameService.updateGame(id, requestBody);
   }
 }
