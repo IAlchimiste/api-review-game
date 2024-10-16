@@ -41,10 +41,7 @@ export class ConsoleController extends Controller {
 
   // Met à jour une console par ID
   @Patch("{id}")
-  public async updateConsole(
-    @Path() id: number,
-    @Body() requestBody: ConsoleDTO
-  ): Promise<ConsoleDTO | null> {
+  public async updateConsole(@Path() id: number, @Body() requestBody: ConsoleDTO): Promise<ConsoleDTO | null> {
     const { name, manufacturer } = requestBody;
     return await consoleService.updateConsole(id, name, manufacturer);
   }
